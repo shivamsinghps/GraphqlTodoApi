@@ -8,7 +8,6 @@ const verifyUser = async req =>{
         {
             const tk = token.split(' ')[1]
             const payload = jwt.verify(tk,process.env.JWT_SECRET_KEY || 'yoyo')
-            console.log(payload.email);
             req.email = payload.email
         }
     }catch(err){

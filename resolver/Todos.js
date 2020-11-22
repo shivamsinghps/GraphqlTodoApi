@@ -68,15 +68,16 @@ const Mutation = {
 }
 
 const Todo = {
-    user:async (parent)=>{
-      try {
-        const user = await Users.findOne({_id:parent.user})
-        return user
-      } catch (error) {
-        console.log(error);
-        throw error
-      }
-    }
+        user:async (parent,__,{ loaders })=>{
+            try {
+                // const user = await Users.findOne({_id:parent.user})
+              const user = await loaders.user.load(parent.user.toString())
+              return user
+            } catch (error) {
+              console.log(error);
+              throw error
+            }
+          }
 
 }
 

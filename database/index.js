@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 
 const connection = async () =>{
     try{
+    mongoose.set('debug',true)
     await mongoose.connect(process.env.MONGO,{
         useNewUrlParser:true,
         useUnifiedTopology:true

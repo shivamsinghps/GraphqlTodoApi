@@ -6,6 +6,9 @@ import connection from './database'
 import typeDefs from './schema'
 import resolvers from './resolver'
 import verifyUser from './middleware/auth'
+import Dataloaders from 'dataloader'
+import loaders from './loaders'
+
 /**
  * setting up the env variables
  */
@@ -38,7 +41,12 @@ const apolloserver = new ApolloServer({
     resolvers,
     context:async({req})=>{
         verifyUser(req)
-        return {email:req.email}
+        return {
+            email:req.email,
+            loaders:{
+                user: new Dataloaders(keys =>loaders.user.batchUser(keys))
+            }
+        }
     }
 })
 
